@@ -1,53 +1,53 @@
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 /**
  * ============================================================
- * MAIN CLASS - UseCase10PalindromeCheckerApp
+ * MAIN CLASS - UseCase7PalindromeCheckerApp
  * ============================================================
+ * <p>
+ * Use Case 7: Deque-Based Optimized Palindrome Checker
+ * <p>
+ * Description:
+ * This class validates a palindrome using a Deque
+ * (Double Ended Queue).
+ * <p>
+ * Characters are inserted into the deque and compared
+ * by removing elements from both ends.
+ * <p>
+ * Data Structure Used: Deque (ArrayDeque)
  *
- * Use Case 10: Case-Insensitive & Space-Ignored Palindrome
- *
- * Goal:
- * Ignore spaces and case while checking palindrome.
- *
- * Key Concepts:
- * - String preprocessing
- * - Regular expressions
- *
- * Data Structure: String
+ * @author Developer
+ * @version 7.0
  */
 
 public class PalindromeCheckerApp {
 
+    /**
+     * Application entry point for UC7.
+     *
+     * @param args Command-line arguments
+     */
     public static void main(String[] args) {
+        String input = "refer";
 
-        String input = "A man a plan a canal Panama";
-        String normalized = normalize(input);
-        boolean isPalindrome = checkPalindrome(normalized);
+        Deque<Character> deque = new ArrayDeque<>();
+        for (char c : input.toCharArray()) {
+            deque.addLast(c);
+        }
 
-        System.out.println("Input: " + input);
-        System.out.println("Normalized: " + normalized);
-        System.out.println("Is Palindrome?: " + isPalindrome);
-    }
+        boolean isPalindrome = true;
+        while (deque.size() > 1) {
+            char front = deque.removeFirst();
+            char rear = deque.removeLast();
 
-    /**
-     * Removes spaces and converts to lowercase.
-     */
-    private static String normalize(String str) {
-        return str
-                .replaceAll("\\s+", "")  // remove spaces
-                .toLowerCase();          // convert to lowercase
-    }
-
-    /**
-     * Iterative palindrome check.
-     */
-    private static boolean checkPalindrome(String str) {
-
-        for (int i = 0; i < str.length() / 2; i++) {
-            if (str.charAt(i) != str.charAt(str.length() - 1 - i)) {
-                return false;
+            if (front != rear) {
+                isPalindrome = false;
+                break;
             }
         }
 
-        return true;
+        System.out.println("Input: " + input);
+        System.out.println("Is Palindrome?: " + isPalindrome);
     }
 }
