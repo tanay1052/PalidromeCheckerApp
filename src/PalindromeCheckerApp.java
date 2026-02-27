@@ -1,53 +1,53 @@
-import java.util.ArrayDeque;
-import java.util.Deque;
-
 /**
  * ============================================================
- * MAIN CLASS - UseCase7PalindromeCheckerApp
+ * MAIN CLASS - UseCase9PalindromeCheckerApp
  * ============================================================
- * <p>
- * Use Case 7: Deque-Based Optimized Palindrome Checker
- * <p>
- * Description:
- * This class validates a palindrome using a Deque
- * (Double Ended Queue).
- * <p>
- * Characters are inserted into the deque and compared
- * by removing elements from both ends.
- * <p>
- * Data Structure Used: Deque (ArrayDeque)
  *
- * @author Developer
- * @version 7.0
+ * Use Case 9: Recursive Palindrome Checker
+ *
+ * Goal:
+ * Check palindrome using recursion.
+ *
+ * Flow:
+ * 1. Recursive call compares start and end
+ * 2. Base condition exits recursion
+ *
+ * Data Structure Used: Call Stack
  */
 
 public class PalindromeCheckerApp {
 
-    /**
-     * Application entry point for UC7.
-     *
-     * @param args Command-line arguments
-     */
     public static void main(String[] args) {
-        String input = "refer";
 
-        Deque<Character> deque = new ArrayDeque<>();
-        for (char c : input.toCharArray()) {
-            deque.addLast(c);
-        }
+        String input = "madam";
 
-        boolean isPalindrome = true;
-        while (deque.size() > 1) {
-            char front = deque.removeFirst();
-            char rear = deque.removeLast();
-
-            if (front != rear) {
-                isPalindrome = false;
-                break;
-            }
-        }
+        boolean result = checkPalindrome(input, 0, input.length() - 1);
 
         System.out.println("Input: " + input);
-        System.out.println("Is Palindrome?: " + isPalindrome);
+        System.out.println("Is Palindrome?: " + result);
+    }
+
+    /**
+     * Recursively checks whether a string is a palindrome.
+     *
+     * @param s     Input string
+     * @param start Starting index
+     * @param end   Ending index
+     * @return true if palindrome, otherwise false
+     */
+    private static boolean checkPalindrome(String s, int start, int end) {
+
+        // Base condition: pointers crossed or equal
+        if (start >= end) {
+            return true;
+        }
+
+        // If mismatch found
+        if (s.charAt(start) != s.charAt(end)) {
+            return false;
+        }
+
+        // Recursive call (move inward)
+        return checkPalindrome(s, start + 1, end - 1);
     }
 }
